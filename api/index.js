@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
+const userRoute = require("./routes/userRoute")
 
 
 // middlewares
@@ -12,7 +13,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
-
+// Route middlewares
+app.use("/api/users",userRoute)
 
 
 
@@ -52,6 +54,7 @@ const PORT = process.env.PORT || 5000;
 mongoose.set('strictQuery',false)
 mongoose.connect(process.env.MONGO_URL)
     .then(() => {
+        console.log('mongoose connect')
         app.listen(PORT, () => {
             console.log(`server Running on port ${PORT}`)
         
